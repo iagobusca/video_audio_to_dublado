@@ -10,14 +10,14 @@ MODAL_CSS = """
     justify-content: center;
     padding: 24px;
 }
-#pipeline-modal > .gr-group,
-.pipeline-modal-card {
+#pipeline-modal > .gr-column,
+#pipeline-modal > div {
     background: var(--background-fill-primary);
     color: var(--body-text-color);
     border: 1px solid var(--border-color-primary);
     border-radius: 12px;
     padding: 20px;
-    width: min(720px, 100%);
+    width: min(640px, 92vw);
     max-height: 85vh;
     overflow-y: auto;
     box-shadow: 0 12px 48px rgba(0, 0, 0, 0.45);

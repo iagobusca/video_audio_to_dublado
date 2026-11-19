@@ -4,15 +4,21 @@ from pathlib import Path
 import requests
 from .base import WorkerBase
 
+import shutil
 from ..config import ROOT
-VENV_WORKERS = ROOT / "venv_workers" / "Scripts" / "python.exe"
-# fallback: venv principal
-if not VENV_WORKERS.exists():
-    alt = ROOT / "venv" / "Scripts" / "python.exe"
-    if alt.exists():
-        VENV_WORKERS = alt
-    else:
-        VENV_WORKERS = Path("python")
+_candidates = [
+    ROOT / "venv_workers" / "Scripts" / "python.exe",
+    ROOT / "venv" / "Scripts" / "python.exe",
+    ROOT / "bin" / "runtime" / "python" / "python.exe",
+]
+VENV_WORKERS = None
+for c in _candidates:
+    if c.exists():
+        VENV_WORKERS = c
+        break
+if VENV_WORKERS is None:
+    found = shutil.which("python")
+    VENV_WORKERS = Path(found) if found else Path("python")
 
 
 class Worker(WorkerBase):

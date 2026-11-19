@@ -180,18 +180,17 @@ def build(jm):
             out_audio = gr.Audio(label="Resultado (audio)", visible=False)
 
         with gr.Column(visible=False, elem_id="pipeline-modal") as modal:
-            with gr.Group(elem_classes=["pipeline-modal-card"]):
-                with gr.Row():
-                    gr.Markdown("### Pipeline de Dublagem")
-                    btn_close_modal = gr.Button("Fechar ✕", elem_id="pipeline-modal-close", scale=0)
-                modal_info = gr.HTML()
-                with gr.Row():
-                    modal_backend = gr.Dropdown(choices=_tts_models(), value=_tts_models()[0] if _tts_models() else None, label="Backend TTS")
-                    modal_preset = gr.Dropdown(["leve", "equilibrado", "maximo", "custom"], value="equilibrado", label="Preset")
-                modal_revisar = gr.Checkbox(label="Revisar traducao")
-                btn_start = gr.Button("Start Dublagem", variant="primary")
-                modal_status = gr.Textbox(label="Status do job", lines=8, interactive=False)
-                modal_progress = gr.HTML(value="<div class='dubbr-progress'><div class='bar' style='width:0%'></div></div>")
+            with gr.Row():
+                gr.Markdown("### Pipeline de Dublagem")
+                btn_close_modal = gr.Button("Fechar ✕", scale=0)
+            modal_info = gr.HTML()
+            with gr.Row():
+                modal_backend = gr.Dropdown(choices=_tts_models(), value=_tts_models()[0] if _tts_models() else None, label="Backend TTS")
+                modal_preset = gr.Dropdown(["leve", "equilibrado", "maximo", "custom"], value="equilibrado", label="Preset")
+            modal_revisar = gr.Checkbox(label="Revisar traducao")
+            btn_start = gr.Button("Start Dublagem", variant="primary")
+            modal_status = gr.Textbox(label="Status do job", lines=8, interactive=False)
+            modal_progress = gr.HTML(value="<div class='dubbr-progress'><div class='bar' style='width:0%'></div></div>")
 
         timer = gr.Timer(1.0)
 
