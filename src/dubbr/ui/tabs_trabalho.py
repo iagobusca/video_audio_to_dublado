@@ -226,8 +226,8 @@ def build(jm):
 
         def open_modal(path, backend_val, preset_val, revisar_val):
             if not path:
-                gr.Warning("Selecione um video na tabela da Galeria (clique em uma linha).")
-                return gr.update(visible=False), "", backend_val, preset_val, revisar_val
+                html = "<p style='color:#c00'>Selecione um video na tabela da Galeria (clique em uma linha) e cole o caminho em 'Video selecionado'.</p>"
+                return gr.update(visible=True), html, backend_val, preset_val, revisar_val
             html = (
                 "<div style='padding:4px 0'>"
                 f"<p><b>Video:</b> {path}</p>"
