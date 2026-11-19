@@ -24,13 +24,20 @@ def run(segments, vocal_path, workdir):
     wd = Path(workdir)
     clips = wd / "ser_clips"
     clips.mkdir(exist_ok=True)
-    with Worker("ser", "ser.py", 8011) as w:
-        for i, s in enumerate(segments):
-            clip = clips / f"seg_{i:04d}.wav"
-            _cut(vocal_path, s["start"], s["end"], clip)
-            r = w.post("/ser", {"audio_path": str(clip)}).json()
-            s["arousal"] = float(r.get("arousal", 0.5))
-            s["valence"] = float(r.get("valence", 0.5))
-            s["emotion"] = _label(s["arousal"], s["valence"])
+    try:
+        with Worker("ser", "ser.py", 8011) as w:
+            for i, s in enumerate(segments):
+                clip = clips / f"seg_{i:04d}.wav"
+                _cut(vocal_path, s["start"], s["end"], clip)
+                r = w.post("/ser", {"audio_path": str(clip)}).json()
+                s["arousal"] = float(r.get("arousal", 0.5))
+                s["valence"] = float(r.get("valence", 0.5))
+                s["emotion"] = _label(s["arousal"], s["valence"])
+                s["ref_text"] = s.get("text", "")
+    except Exception:
+        for s in segments:
+            s.setdefault("arousal", 0.5)
+            s.setdefault("valence", 0.5)
+            s.setdefault("emotion", "neutro")
             s["ref_text"] = s.get("text", "")
     return segments
