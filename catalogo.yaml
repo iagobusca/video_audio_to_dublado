@@ -28,11 +28,19 @@ modelos:
   - id: chatterbox-ptbr
     papel: tts
     repo: ResembleAI/Chatterbox-Multilingual-pt-br
+    deps: [chatterbox-mtl-base]
     tamanhos_gb:
       fp32: 3.5
       fp16: 2.2
       8bit: 1.8
     variantes: [fp32, fp16, 8bit]
+  - id: chatterbox-mtl-base
+    papel: tts
+    repo: ResembleAI/chatterbox
+    variantes: [fp32]
+    runtime: worker_chatterbox
+    licenca: MIT
+    oculto: true
     runtime: worker_chatterbox
     licenca: MIT
   - id: f5-tts-ptbr
@@ -69,6 +77,18 @@ modelos:
     variantes: [Q8_0, Q4_K_M]
     runtime: parakeet_cpp
     licenca: CC-BY-4.0
+  - id: faster-whisper-large-v3
+    papel: asr
+    repo: Systran/faster-whisper-large-v3
+    variantes: [float16, int8]
+    runtime: faster_whisper
+    licenca: MIT
+  - id: faster-whisper-small
+    papel: asr
+    repo: Systran/faster-whisper-small
+    variantes: [int8, float16]
+    runtime: faster_whisper
+    licenca: MIT
   - id: audeering-dim
     papel: ser
     repo: audeering/wav2vec2-large-robust-12-ft-emotion-msp-dim

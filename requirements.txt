@@ -1,6 +1,7 @@
 # requirements.txt - venv principal (leve)
 gradio==6.32.0
-huggingface_hub>=0.25
+huggingface_hub>=0.26,<3
+faster-whisper>=1.0
 soundfile>=0.12
 numpy>=1.26
 pyyaml>=6.0

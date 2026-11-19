@@ -26,4 +26,14 @@ HF_HUB_DISABLE_SYMLINKS_WARNING=1
 VRAM_BUDGET_GB=7.2
 "@ | Set-Content -Path $envFile -Encoding UTF8
 
+# venv dos workers (torch + modelos) - Python 3.12
+$venvW = Join-Path $Root "venv_workers"
+if (-not (Test-Path $venvW)) { py -3.12 -m venv $venvW }
+& "$venvW\Scripts\pip.exe" install --upgrade pip
+& "$venvW\Scripts\pip.exe" install torch torchaudio --index-url https://download.pytorch.org/whl/cu121
+& "$venvW\Scripts\pip.exe" install transformers accelerate demucs chatterbox-tts safetensors fastapi uvicorn soundfile pydantic ctranslate2 faster-whisper
+
+# binario de traducao
+& (Join-Path $venv "Scripts\python.exe") (Join-Path $Root "bin\get_binaries.py")
+
 Write-Host "Setup concluido. Execute iniciar.bat"

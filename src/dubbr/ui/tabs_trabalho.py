@@ -79,13 +79,14 @@ def build(jm):
             def gen_a(ref, text, backend, quant, intensity, ref_text, xvec):
                 if not text or not text.strip():
                     return None, "Informe o texto."
+                if str(backend).startswith("qwen3"):
+                    return None, "Qwen3-TTS requer qwentts.cpp (experimental). Use chatterbox-ptbr."
                 sid = uuid.uuid4().hex[:6]
                 out_path = ROOT / "saidas" / f"modoA_{sid}.wav"
                 out_path.parent.mkdir(parents=True, exist_ok=True)
-                _placeholder_audio(out_path)
-                msgs = [f"Backend: {backend} ({quant})", f"Intensidade: {intensity}",
-                        f"ref_text: {ref_text}", f"x_vector_only: {xvec}",
-                        "Audio gerado (placeholder - backend TTS a integrar)."]
+                from dubbr.tts_client import synthesize
+                synthesize(text, ref_wav=ref, backend=backend, exaggeration=intensity, out_path=str(out_path))
+                msgs = [f"Backend: {backend} ({quant})", f"Intensidade: {intensity}", "Audio gerado (clone da referencia)."]
                 return str(out_path), "\n".join(msgs)
             btn_gen_a.click(gen_a, inputs=[ref_audio, txt_a, backend_a, quant_a, intens, ref_text_a, xvec_a],
                             outputs=[out_a, status_a])
@@ -114,8 +115,9 @@ def build(jm):
                 sid = uuid.uuid4().hex[:6]
                 out_path = ROOT / "saidas" / f"modoB_{sid}.wav"
                 out_path.parent.mkdir(parents=True, exist_ok=True)
-                _placeholder_audio(out_path)
-                msgs = [f"Modo: {modo}", f"Texto: {text[:60]}", "Audio gerado (placeholder - backend TTS a integrar)."]
+                from dubbr.tts_client import synthesize
+                synthesize(text, backend="chatterbox-ptbr", exaggeration=exag, out_path=str(out_path))
+                msgs = [f"Modo: {modo}", f"Texto: {text[:60]}", "Audio gerado (TTS real)."]
                 return str(out_path), "\n".join(msgs)
             btn_gen_b.click(gen_b, inputs=[txt_b, modo_b, preset_voice, instruct_b, voice_desc, exaggeration_b],
                             outputs=[out_b, status_b])
@@ -260,5 +262,15 @@ def build(jm):
             entrada = arquivo or url
             if not entrada:
                 return "Informe um arquivo local ou uma URL do YouTube."
-            return "pipeline stub ok"
+            j = jm.submit(entrada, preset=preset_val, extras={"revisar": revisar_val})
+            return f"Job {j.id} enfileirado (preset={preset_val}). Acompanhe o progresso."
         btn.click(start_pipeline, inputs=[inp_file, inp_url, preset, revisar], outputs=progress)
+
+        timer2 = gr.Timer(1.0)
+        def drain2():
+            evs = jm.bus.drain()
+            if not evs:
+                return gr.update()
+            lines = [f"[{e['estagio']}] {e['status']} {e['pct']:.0f}% - {e['msg']}" for e in evs]
+            return "\n".join(lines)
+        timer2.tick(drain2, outputs=progress)
