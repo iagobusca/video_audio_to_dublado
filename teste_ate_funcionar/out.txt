@@ -1,0 +1,47 @@
+job 81e70faf queued
+[PIPE] aguardando 0% - job enfileirado
+[PIPE] rodando 0% - iniciando (preset=leve, tts=chatterbox-ptbr)
+[M1] rodando 0% - ingestao
+[M1] ok 100% - ingestao ok
+[M2] rodando 0% - separacao vocal
+[M2] ok 100% - separacao ok
+[M3] rodando 0% - asr (extracao de texto)
+[M3] ok 100% - asr: 77 segmentos
+[M4] rodando 0% - ser (emocao)
+[M4] ok 100% - ser ok
+[M5] rodando 0% - traducao EN->pt-BR
+[M5] rodando 10% - traduzindo 8/77
+[M5] rodando 21% - traduzindo 16/77
+[M5] rodando 31% - traduzindo 24/77
+[M5] rodando 42% - traduzindo 32/77
+[M5] rodando 52% - traduzindo 40/77
+[M5] rodando 62% - traduzindo 48/77
+[M5] rodando 73% - traduzindo 56/77
+[M5] rodando 83% - traduzindo 64/77
+[M5] rodando 94% - traduzindo 72/77
+[M5] rodando 100% - traduzindo 77/77
+[M5] ok 100% - traducao ok
+[M6] rodando 0% - tts (dublagem)
+[M6] rodando 1% - seg 1/77
+[M6] rodando 3% - seg 2/77
+[M6] rodando 4% - seg 3/77
+[M6] rodando 5% - seg 4/77
+[M6] rodando 6% - seg 5/77
+[M6] rodando 8% - seg 6/77
+[M6] rodando 9% - seg 7/77
+[M6] rodando 10% - seg 8/77
+[M6] rodando 12% - seg 9/77
+[M6] rodando 13% - seg 10/77
+[M6] rodando 14% - seg 11/77
+[M6] rodando 16% - seg 12/77
+[M6] rodando 17% - seg 13/77
+[M6] rodando 18% - seg 14/77
+[M6] rodando 19% - seg 15/77
+[M6] rodando 21% - seg 16/77
+[M6] rodando 22% - seg 17/77
+[M6] rodando 23% - seg 18/77
+[M6] rodando 25% - seg 19/77
+[M6] rodando 26% - seg 20/77
+[M6] rodando 27% - seg 21/77
+STATUS: failed
+RESULT: None

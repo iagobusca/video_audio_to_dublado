@@ -62,9 +62,15 @@ def run(segments, vocal_path, workdir, backend="chatterbox-ptbr", jm=None, job_i
                 continue
             raw = tts_dir / f"seg_{i:04d}.wav"
             exag = float(np.clip(0.3 + 0.5 * s.get("arousal", 0.5), 0.25, 1.5))
-            r = w.post("/tts", {"text": txt, "ref_wav": str(ref_wav), "ref_text": ref_text,
-                                "language_id": "pt", "exaggeration": exag}, timeout=900)
-            raw.write_bytes(r.content)
+            try:
+                r = w.post("/tts", {"text": txt, "ref_wav": str(ref_wav), "ref_text": ref_text,
+                                    "language_id": "pt", "exaggeration": exag}, timeout=900)
+                raw.write_bytes(r.content)
+            except Exception as e:
+                # segmento problematico -> silencio da duracao alvo
+                target = s["end"] - s["start"]
+                sf.write(str(raw), np.zeros(int(target * SR), dtype="float32"), SR)
+                s["tts_error"] = str(e)
             target = s["end"] - s["start"]
             d = _dur(raw)
             fit = raw

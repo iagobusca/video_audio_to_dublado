@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "F:\LABORATORIO_CLI\video_audio_to_dublado\teste_ate_funcionar\02_pipeline_full.py", line 24, in <module>
+    res = run_pipeline(j, jm)
+  File "F:\LABORATORIO_CLI\video_audio_to_dublado\src\dubbr\pipeline\orchestrator.py", line 68, in run_pipeline
+    track = m6_tts.run(segs, meta.get("vocal") or meta["audio"], wd, backend=backend,
+                       jm=jm, job_id=job.id,
+                       emit=lambda i, n: jm.emit(job.id, "M6", "rodando", i / max(n, 1) * 100, f"seg {i}/{n}"))
+  File "F:\LABORATORIO_CLI\video_audio_to_dublado\src\dubbr\pipeline\m6_tts.py", line 65, in run
+    r = w.post("/tts", {"text": txt, "ref_wav": str(ref_wav), "ref_text": ref_text,
+                        "language_id": "pt", "exaggeration": exag}, timeout=900)
+  File "F:\LABORATORIO_CLI\video_audio_to_dublado\src\dubbr\workers\client.py", line 44, in post
+    r.raise_for_status()
+    ~~~~~~~~~~~~~~~~~~^^
+  File "F:\LABORATORIO_CLI\video_audio_to_dublado\bin\runtime\python\Lib\site-packages\requests\models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 500 Server Error: Internal Server Error for url: http://127.0.0.1:8022/tts

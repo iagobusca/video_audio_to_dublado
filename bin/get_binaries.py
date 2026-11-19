@@ -8,7 +8,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DEST = ROOT / "bin" / "llama.cpp"
 DEST.mkdir(parents=True, exist_ok=True)
-URL = os.environ.get("LLAMA_URL", "https://github.com/ggerganov/llama.cpp/releases/latest/download/llama-bin-win-cuda-x64.zip")
+URL = os.environ.get("LLAMA_URL", "https://github.com/ggml-org/llama.cpp/releases/download/b12359/llama-b12359-bin-win-cpu-x64.zip")
 
 
 def main():
