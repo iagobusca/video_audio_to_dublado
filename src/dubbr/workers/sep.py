@@ -24,8 +24,12 @@ def health():
 def separate(req: Req):
     out = Path(req.workdir) / "sep"
     out.mkdir(parents=True, exist_ok=True)
-    subprocess.run([sys.executable, "-m", "demucs.separate", "--two-stems=vocals",
-                    "-n", "htdemucs_ft", "-o", str(out), req.audio_path], check=True)
+    import torch
+    cmd = [sys.executable, "-m", "demucs.separate", "--two-stems=vocals",
+           "-n", "htdemucs_ft", "-o", str(out), req.audio_path]
+    if torch.cuda.is_available():
+        cmd += ["-d", "cuda"]
+    subprocess.run(cmd, check=True)
     d = out / "htdemucs_ft" / Path(req.audio_path).stem
     return {"vocal": str(d / "vocals.wav"), "instrumental": str(d / "no_vocals.wav")}
 
