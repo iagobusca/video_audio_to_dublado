@@ -1,0 +1,15 @@
+# requirements.txt - venv principal (leve)
+gradio>=4.44
+huggingface_hub>=0.25
+soundfile>=0.12
+numpy>=1.26
+pyyaml>=6.0
+requests>=2.31
+fastapi>=0.115
+uvicorn>=0.30
+pydantic>=2.8
+yt-dlp>=2024.8
+num2words>=0.5
+python-dotenv>=1.0
+psutil>=5.9
+tqdm>=4.66

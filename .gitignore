@@ -1,0 +1,15 @@
+# runtime / modelos / saidas
+bin/runtime/
+modelos/
+saidas/
+youtube_download/
+logs/*.txt
+logs/*.py
+vozes/
+*.wav
+*.mp4
+.env
+__pycache__/
+*.pyc
+.venv/
+venv/
