@@ -4,8 +4,15 @@ from pathlib import Path
 import requests
 from .base import WorkerBase
 
-ROOT = Path(__file__).resolve().parents[2]
+from ..config import ROOT
 VENV_WORKERS = ROOT / "venv_workers" / "Scripts" / "python.exe"
+# fallback: venv principal
+if not VENV_WORKERS.exists():
+    alt = ROOT / "venv" / "Scripts" / "python.exe"
+    if alt.exists():
+        VENV_WORKERS = alt
+    else:
+        VENV_WORKERS = Path("python")
 
 
 class Worker(WorkerBase):

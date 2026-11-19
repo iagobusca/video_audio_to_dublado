@@ -180,7 +180,7 @@ def build(jm):
             out_audio = gr.Audio(label="Resultado (audio)", visible=False)
 
         with gr.Column(visible=False, elem_id="pipeline-modal") as modal:
-            with gr.Group(elem_id="pipeline-modal-card"):
+            with gr.Group(elem_classes=["pipeline-modal-card"]):
                 with gr.Row():
                     gr.Markdown("### Pipeline de Dublagem")
                     btn_close_modal = gr.Button("Fechar ✕", elem_id="pipeline-modal-close", scale=0)

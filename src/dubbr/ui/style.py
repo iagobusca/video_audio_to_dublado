@@ -10,7 +10,8 @@ MODAL_CSS = """
     justify-content: center;
     padding: 24px;
 }
-#pipeline-modal-card {
+#pipeline-modal > .gr-group,
+.pipeline-modal-card {
     background: var(--background-fill-primary);
     color: var(--body-text-color);
     border: 1px solid var(--border-color-primary);
