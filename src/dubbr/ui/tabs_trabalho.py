@@ -186,8 +186,9 @@ def build(jm):
                     btn_close_modal = gr.Button("Fechar ✕", elem_id="pipeline-modal-close", scale=0)
                 modal_info = gr.HTML()
                 with gr.Row():
+                    modal_backend = gr.Dropdown(choices=_tts_models(), value=_tts_models()[0] if _tts_models() else None, label="Backend TTS")
                     modal_preset = gr.Dropdown(["leve", "equilibrado", "maximo", "custom"], value="equilibrado", label="Preset")
-                    modal_revisar = gr.Checkbox(label="Revisar traducao")
+                modal_revisar = gr.Checkbox(label="Revisar traducao")
                 btn_start = gr.Button("Start Dublagem", variant="primary")
                 modal_status = gr.Textbox(label="Status do job", lines=8, interactive=False)
                 modal_progress = gr.HTML(value="<div class='dubbr-progress'><div class='bar' style='width:0%'></div></div>")
@@ -224,10 +225,10 @@ def build(jm):
                 return ""
         gal_video.select(on_select_video, inputs=[video_rows], outputs=sel_video)
 
-        def open_modal(path, preset_val, revisar_val):
+        def open_modal(path, backend_val, preset_val, revisar_val):
             if not path:
                 gr.Warning("Selecione um video na tabela da Galeria (clique em uma linha).")
-                return gr.update(visible=False), "", preset_val, revisar_val
+                return gr.update(visible=False), "", backend_val, preset_val, revisar_val
             html = (
                 "<div style='padding:4px 0'>"
                 f"<p><b>Video:</b> {path}</p>"
@@ -236,17 +237,18 @@ def build(jm):
                 "<p><b>Status:</b> aguardando Start Dublagem</p>"
                 "</div>"
             )
-            return gr.update(visible=True), html, preset_val, revisar_val
-        btn_dublar.click(open_modal, inputs=[sel_video, preset, revisar],
-                         outputs=[modal, modal_info, modal_preset, modal_revisar])
+            return gr.update(visible=True), html, backend_val, preset_val, revisar_val
+        btn_dublar.click(open_modal, inputs=[sel_video, modal_backend, preset, revisar],
+                         outputs=[modal, modal_info, modal_backend, modal_preset, modal_revisar])
         btn_close_modal.click(lambda: gr.update(visible=False), outputs=modal)
 
-        def start_job(path, preset_val, revisar_val):
+        def start_job(path, backend_val, preset_val, revisar_val):
             if not path:
                 return "Nenhum video selecionado."
-            j = jm.submit(path, preset=preset_val, modo="dublagem", extras={"revisar": revisar_val})
-            return f"Job {j.id} enfileirado (preset={preset_val}).\nAguardando orchestrator (stub)."
-        btn_start.click(start_job, inputs=[sel_video, modal_preset, modal_revisar], outputs=modal_status)
+            j = jm.submit(path, preset=preset_val, modo="dublagem",
+                          extras={"revisar": revisar_val, "backend_tts": backend_val})
+            return f"Job {j.id} enfileirado (preset={preset_val}, tts={backend_val}).\nAguardando orchestrator."
+        btn_start.click(start_job, inputs=[sel_video, modal_backend, modal_preset, modal_revisar], outputs=modal_status)
 
         def drain():
             evs = jm.bus.drain()
