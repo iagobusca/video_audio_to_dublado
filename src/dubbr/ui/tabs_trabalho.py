@@ -168,7 +168,7 @@ def build(jm):
                             btn_refresh_video = gr.Button("Atualizar lista de videos")
                             sel_video = gr.Textbox(label="Video selecionado", interactive=False)
                             btn_dublar = gr.Button("Dublar video selecionado", variant="primary")
-                            out_gal_video = gr.Video(label="Resultado (video dublado)")
+                            out_gal_video = gr.Video(label="Resultado (video dublado)", visible=False)
                     audio_rows = gr.State([])
                     video_rows = gr.State([])
 
@@ -176,8 +176,8 @@ def build(jm):
             revisar = gr.Checkbox(label="Pausar para revisar traducao")
             btn = gr.Button("Iniciar pipeline", variant="primary")
             progress = gr.Textbox(label="Progresso", lines=12, interactive=False)
-            out_video = gr.Video(label="Resultado (video)")
-            out_audio = gr.Audio(label="Resultado (audio)")
+            out_video = gr.Video(label="Resultado (video)", visible=False)
+            out_audio = gr.Audio(label="Resultado (audio)", visible=False)
 
         with gr.Column(visible=False, elem_id="pipeline-modal") as modal:
             with gr.Group(elem_id="pipeline-modal-card"):
@@ -261,10 +261,11 @@ def build(jm):
         def start_pipeline(arquivo, url, preset_val, revisar_val):
             entrada = arquivo or url
             if not entrada:
-                return "Informe um arquivo local ou uma URL do YouTube."
+                return "Informe um arquivo local ou uma URL do YouTube.", gr.update(visible=False), gr.update(visible=False)
             j = jm.submit(entrada, preset=preset_val, extras={"revisar": revisar_val})
-            return f"Job {j.id} enfileirado (preset={preset_val}). Acompanhe o progresso."
-        btn.click(start_pipeline, inputs=[inp_file, inp_url, preset, revisar], outputs=progress)
+            return (f"Job {j.id} enfileirado (preset={preset_val}). Acompanhe o progresso.",
+                    gr.update(visible=True), gr.update(visible=True))
+        btn.click(start_pipeline, inputs=[inp_file, inp_url, preset, revisar], outputs=[progress, out_video, out_audio])
 
         timer2 = gr.Timer(1.0)
         def drain2():
