@@ -218,3 +218,31 @@ ERROR:    Traceback (most recent call last):
 OSError: Can't load feature extractor for '.'. If you were trying to load it from 'https://huggingface.co/models', make sure you don't have a local directory with the same name. Otherwise, make sure '.' is the correct path to a directory containing a preprocessor_config.json file
 
 ERROR:    Application startup failed. Exiting.
+F:\LABORATORIO_CLI\video_audio_to_dublado\src\dubbr\workers\ser.py:21: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+ERROR:    Traceback (most recent call last):
+  File "F:\LABORATORIO_CLI\video_audio_to_dublado\bin\runtime\python\Lib\site-packages\starlette\routing.py", line 661, in lifespan
+    async with self.lifespan_context(app) as maybe_state:
+               ~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "F:\LABORATORIO_CLI\video_audio_to_dublado\bin\runtime\python\Lib\site-packages\fastapi\routing.py", line 273, in __aenter__
+    await self._router._startup()
+  File "F:\LABORATORIO_CLI\video_audio_to_dublado\bin\runtime\python\Lib\site-packages\fastapi\routing.py", line 6482, in _startup
+    handler()
+    ~~~~~~~^^
+  File "F:\LABORATORIO_CLI\video_audio_to_dublado\src\dubbr\workers\ser.py", line 25, in load
+    fe = AutoFeatureExtractor.from_pretrained(src)
+  File "F:\LABORATORIO_CLI\video_audio_to_dublado\bin\runtime\python\Lib\site-packages\transformers\models\auto\feature_extraction_auto.py", line 315, in from_pretrained
+    config_dict, _ = FeatureExtractionMixin.get_feature_extractor_dict(pretrained_model_name_or_path, **kwargs)
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\LABORATORIO_CLI\video_audio_to_dublado\bin\runtime\python\Lib\site-packages\transformers\feature_extraction_utils.py", line 529, in get_feature_extractor_dict
+    raise OSError(
+    ...<4 lines>...
+    )
+OSError: Can't load feature extractor for '.'. If you were trying to load it from 'https://huggingface.co/models', make sure you don't have a local directory with the same name. Otherwise, make sure '.' is the correct path to a directory containing a preprocessor_config.json file
+
+ERROR:    Application startup failed. Exiting.

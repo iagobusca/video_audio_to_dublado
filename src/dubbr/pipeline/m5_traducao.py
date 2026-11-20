@@ -19,9 +19,17 @@ def _glossario():
 
 
 def _start_server(variante, ctx=4096, ngl=99):
-    gguf = MODELS_DIR / "lfm3-omni-2b" / f"LFM3-Omni-2B-{variante}.gguf"
-    if not gguf.exists():
-        raise FileNotFoundError(f"Modelo de traducao ausente: {gguf} (baixe na aba Modelos)")
+    base = MODELS_DIR / "lfm3-omni-2b"
+    candidatos = [variante] + ["Q4_K_M", "Q8_0", "F16"]
+    gguf = None
+    for v in candidatos:
+        p = base / f"LFM3-Omni-2B-{v}.gguf"
+        if p.exists():
+            gguf = p
+            variante = v
+            break
+    if gguf is None:
+        raise FileNotFoundError(f"Modelo de traducao ausente em {base} (baixe na aba Modelos)")
     if not LLAMA.exists():
         raise FileNotFoundError("bin/llama.cpp/llama-server.exe ausente (rode bin/get_binaries.py)")
     proc = subprocess.Popen([str(LLAMA), "-m", str(gguf), "-c", str(ctx), "-ngl", str(ngl),

@@ -1497,3 +1497,88 @@ Traceback (most recent call last):
     raise CalledProcessError(retcode, process.args,
                              output=stdout, stderr=stderr)
 subprocess.CalledProcessError: Command '['F:\\LABORATORIO_CLI\\video_audio_to_dublado\\bin\\runtime\\python\\python.exe', '-m', 'demucs.separate', '--two-stems=vocals', '-n', 'htdemucs_ft', '-o', 'F:\\LABORATORIO_CLI\\video_audio_to_dublado\\saidas\\81e70faf\\sep', 'F:\\LABORATORIO_CLI\\video_audio_to_dublado\\saidas\\81e70faf\\input.wav']' returned non-zero exit status 1.
+F:\LABORATORIO_CLI\video_audio_to_dublado\bin\runtime\python\python.exe: Error while finding module specification for 'demucs.separate' (ModuleNotFoundError: No module named 'demucs')
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "F:\LABORATORIO_CLI\video_audio_to_dublado\bin\runtime\python\Lib\site-packages\uvicorn\protocols\http\h11_impl.py", line 411, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self.scope, self.receive, self.send
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "F:\LABORATORIO_CLI\video_audio_to_dublado\bin\runtime\python\Lib\site-packages\uvicorn\middleware\proxy_headers.py", line 63, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\LABORATORIO_CLI\video_audio_to_dublado\bin\runtime\python\Lib\site-packages\fastapi\applications.py", line 1194, in __call__
+    await super().__call__(scope, receive, send)
+  File "F:\LABORATORIO_CLI\video_audio_to_dublado\bin\runtime\python\Lib\site-packages\starlette\applications.py", line 96, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "F:\LABORATORIO_CLI\video_audio_to_dublado\bin\runtime\python\Lib\site-packages\starlette\middleware\errors.py", line 186, in __call__
+    raise exc
+  File "F:\LABORATORIO_CLI\video_audio_to_dublado\bin\runtime\python\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "F:\LABORATORIO_CLI\video_audio_to_dublado\bin\runtime\python\Lib\site-packages\fastapi\telemetry\_asgi.py", line 151, in __call__
+    await self.app(scope, receive, send)
+  File "F:\LABORATORIO_CLI\video_audio_to_dublado\bin\runtime\python\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "F:\LABORATORIO_CLI\video_audio_to_dublado\bin\runtime\python\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "F:\LABORATORIO_CLI\video_audio_to_dublado\bin\runtime\python\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "F:\LABORATORIO_CLI\video_audio_to_dublado\bin\runtime\python\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "F:\LABORATORIO_CLI\video_audio_to_dublado\bin\runtime\python\Lib\site-packages\starlette\routing.py", line 683, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "F:\LABORATORIO_CLI\video_audio_to_dublado\bin\runtime\python\Lib\site-packages\fastapi\routing.py", line 2811, in app
+    await route.handle(scope, receive, send)
+  File "F:\LABORATORIO_CLI\video_audio_to_dublado\bin\runtime\python\Lib\site-packages\fastapi\routing.py", line 1330, in handle
+    await super().handle(scope, receive, send)
+  File "F:\LABORATORIO_CLI\video_audio_to_dublado\bin\runtime\python\Lib\site-packages\starlette\routing.py", line 289, in handle
+    await self.app(scope, receive, send)
+  File "F:\LABORATORIO_CLI\video_audio_to_dublado\bin\runtime\python\Lib\site-packages\fastapi\routing.py", line 166, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "F:\LABORATORIO_CLI\video_audio_to_dublado\bin\runtime\python\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "F:\LABORATORIO_CLI\video_audio_to_dublado\bin\runtime\python\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "F:\LABORATORIO_CLI\video_audio_to_dublado\bin\runtime\python\Lib\site-packages\fastapi\routing.py", line 152, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "F:\LABORATORIO_CLI\video_audio_to_dublado\bin\runtime\python\Lib\site-packages\fastapi\routing.py", line 745, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "F:\LABORATORIO_CLI\video_audio_to_dublado\bin\runtime\python\Lib\site-packages\fastapi\routing.py", line 374, in run_endpoint_function
+    return await run_in_threadpool(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+        _run_sync_endpoint, function=dependant.call, arguments=values
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "F:\LABORATORIO_CLI\video_audio_to_dublado\bin\runtime\python\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\LABORATORIO_CLI\video_audio_to_dublado\bin\runtime\python\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "F:\LABORATORIO_CLI\video_audio_to_dublado\bin\runtime\python\Lib\site-packages\anyio\_backends\_asyncio.py", line 2779, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "F:\LABORATORIO_CLI\video_audio_to_dublado\bin\runtime\python\Lib\site-packages\anyio\_backends\_asyncio.py", line 1124, in run
+    result = context.run(func, *args)
+  File "F:\LABORATORIO_CLI\video_audio_to_dublado\bin\runtime\python\Lib\site-packages\fastapi\telemetry\_api.py", line 244, in _run_sync_endpoint
+    return function(**arguments)
+  File "F:\LABORATORIO_CLI\video_audio_to_dublado\src\dubbr\workers\sep.py", line 32, in separate
+    subprocess.run(cmd, check=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "F:\LABORATORIO_CLI\video_audio_to_dublado\bin\runtime\python\Lib\subprocess.py", line 577, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['F:\\LABORATORIO_CLI\\video_audio_to_dublado\\bin\\runtime\\python\\python.exe', '-m', 'demucs.separate', '--two-stems=vocals', '-n', 'htdemucs_ft', '-o', 'F:\\LABORATORIO_CLI\\video_audio_to_dublado\\saidas\\b81bcaec\\sep', 'F:\\LABORATORIO_CLI\\video_audio_to_dublado\\saidas\\b81bcaec\\input.wav']' returned non-zero exit status 1.
